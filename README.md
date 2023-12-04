@@ -1,7 +1,11 @@
 
-# Welcome to your CDK Python project!
+# Simple VPC Stack
+
+![simple vpc two az, private and public subnets](/vpc.jpg)
+
 
 This is a blank project for CDK development with Python.
+
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
