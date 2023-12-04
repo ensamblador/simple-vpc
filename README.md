@@ -1,7 +1,7 @@
 
 # Simple VPC Stack
 
-Bienvenidos a mi proyecto de infraestructura en la nube de AWS. En este proyecto he creado los siguientes recursos dentro de una región de AWS:
+Este proyecto crea los siguientes recursos dentro de una región de AWS:
 
 * 1 VPC (Virtual Private Cloud) para aislar lógicamente los recursos.
 
@@ -18,7 +18,7 @@ Parámetros almacenados en Parameter Store para guardar los IDs de los recursos 
 
 ![simple vpc two az, private and public subnets](/vpc.jpg)
 
-el codigo es bastante simple
+el codigo es bastante simple de [`network_stack.py`](network/network_stack.py)
 
 
 ```python
@@ -41,16 +41,25 @@ class NetworkStack(Stack):
         self.create_ssm_param("vpc-azs", ",".join(vpc.availability_zones))
         self.create_ssm_param("vpc-private-subnets", private_subnets_ids)
         self.create_ssm_param("vpc-public-subnets", public_subnets_ids)
-
 ```
 
 
 
+
+
+Realmente la creación de la VPC ocurre en la línea 
+```python 
+vpc = ec2.Vpc(self, "V", max_azs=2)
+```
+
+Lo que nos muestra el nivel de abstracción que nos puede entregar CDK.
+
 ## Instrucciones para despliegue
 
-A continuación encuentras las instrucciones para desplegar este proyecto (verifica tus [limites de servicio](https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html) previamente)
+A continuación encuentras las instrucciones para desplegar este proyecto. Verifica tus [limites de servicio](https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html) previamente.
 
 
+Clonar y crear un ambiente virtual python para el proyecto
 
 ```zsh
 git clone https://github.com/ensamblador/simple-vpc.git
@@ -58,7 +67,7 @@ cd simple-vpc
 python3 -m venv .venv
 ```
 
-en linux o macos el ambiente se activa así:
+En linux o macos el ambiente se activa así:
 
 ```zsh
 source .venv/bin/activate
